@@ -70,7 +70,7 @@ namespace RequestDecorator.Test
         }
         public QueryData Data { get; }
 
-        [JsonIgnore]
+        
         public Func<IRequestContext<QueryData, Model, Context>, Task<Result<Model>>> ProcessRequestFunc =>
             (r) =>
             {
