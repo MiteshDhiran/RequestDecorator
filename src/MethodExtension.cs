@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Text.Json;
 using RequestDecorator.Functional;
 
 namespace RequestDecorator
@@ -81,12 +82,14 @@ namespace RequestDecorator
         {
             if (value != null)
             {
-                var serializer = new DataContractJsonSerializer(value.GetType());
-                using var ms = new MemoryStream();
-                serializer.WriteObject(ms, value);
-                ms.Flush();
-                ms.Position = 0;
-                return Encoding.UTF8.GetString(ms.GetBuffer());
+                var serializedData = System.Text.Json.JsonSerializer.Serialize(value);
+                return serializedData;
+                //var serializer = new DataContractJsonSerializer(value.GetType());
+                //using var ms = new MemoryStream();
+                //serializer.WriteObject(ms, value);
+                //ms.Flush();
+                //ms.Position = 0;
+                //return Encoding.UTF8.GetString(ms.GetBuffer());
             }
             else
             {

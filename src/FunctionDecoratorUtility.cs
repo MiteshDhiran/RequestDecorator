@@ -42,18 +42,18 @@ namespace RequestDecorator
                     , (sw, input) => GetNothingMaybe<Task<Result<TR>>>()
                     , (sw, input, previousResultValue) =>
                     {
-                        var serializedInputData = serializeFunc(input.RequestInfo);
+                        //var serializedInputData = serializeFunc(input.RequestInfo.Data);
                         if (previousResultValue.TryGetResult(out var previousResultTask))
                         {
                             var taskResult = previousResultTask.Result;
                             if (taskResult.TryGetResult(out var finalResultValue))
                             {
-                                var logData = new LogDataInfoWithInputOutputData(input.Context, input.RequestInfo, finalResultValue,null);
+                                var logData = new LogDataInfoWithInputOutputData(input.Context, input.RequestInfo.Data, finalResultValue,null);
                                 input.Context.LogRequestInputOutput(logData);
                             }
                             else
                             {
-                                var logData = new LogDataInfoWithInputOutputData(input.Context, input.RequestInfo, finalResultValue, null);
+                                var logData = new LogDataInfoWithInputOutputData(input.Context, input.RequestInfo.Data, finalResultValue, null);
                                 input.Context.LogRequestInputOutput(logData);
                             }
                         }
